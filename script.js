@@ -32,11 +32,10 @@ const calculateWealthBtn = document.getElementById('calculate-wealth');
 // Vector para almacenar los usuarios
 let userList = [];
 
-// TODO: Función que añade un nuevo usuario (objeto) al listado de usuarios (array)
+// TODO: Función que añade un nuevo usuario (objeto) al listado de usuarios (array) y tambien lo guarda en el localStorage
 function addData(newUser) {
-  
-  userList.push(newUser)
-
+  userList.push(newUser);
+  saveDataToLocal();
 }
 
 // Función que formatea un número a dinero
@@ -60,6 +59,7 @@ function imprimirUsuarios(){
         htmlLista += `<div class='person'><strong>${user.nombre}</strong> ${user.dinero}€ </div>`
     }
   document.querySelector("#contenedorUsuarios").innerHTML = htmlLista
+  saveDataToLocal();
 }
 
 function doblarDinero(){
@@ -70,6 +70,7 @@ function doblarDinero(){
           user.millonario = true 
       }
   }
+  saveDataToLocal();
 }
 
 function mostrarMillonarios(){
@@ -78,10 +79,12 @@ function mostrarMillonarios(){
           return usuario;
       }
   })
+  saveDataToLocal();
 }
 
 function ordenarDesc(){
   userList.sort((a, b) => b.dinero - a.dinero);
+  saveDataToLocal();
 }
 
 function totalDinero(){
@@ -120,3 +123,10 @@ calculateWealthBtn.addEventListener("click", function(){
   let totalWealthElement = `<div class='person'><strong>Total</strong> ${total}€</div>`;
   document.querySelector("#totalMoney").innerHTML = totalWealthElement;
 })
+
+
+
+function saveDataToLocal() {
+  // Guardar userList en el localStorage
+  localStorage.setItem('userList', JSON.stringify(userList));
+}
