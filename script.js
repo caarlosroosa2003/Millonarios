@@ -124,9 +124,18 @@ calculateWealthBtn.addEventListener("click", function(){
   document.querySelector("#totalMoney").innerHTML = totalWealthElement;
 })
 
-
-
 function saveDataToLocal() {
   // Guardar userList en el localStorage
   localStorage.setItem('userList', JSON.stringify(userList));
 }
+
+// Función para cargar datos desde el localStorage al iniciar la app
+function loadDataFromLocal() {
+  const savedUserList = localStorage.getItem('userList');
+  if (savedUserList) {
+    userList = JSON.parse(savedUserList);
+    imprimirUsuarios(); // Llamar a imprimirUsuarios después de cargar los datos
+  }
+}
+
+loadDataFromLocal();
